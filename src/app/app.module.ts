@@ -12,8 +12,8 @@ import { ProductListComponent } from './product-list/product-list.component';
         BrowserModule,
         ReactiveFormsModule,
         RouterModule.forRoot([
-            { path: '', component: ProductListComponent },
-        ])
+    { path: '', component: ProductListComponent },
+], { relativeLinkResolution: 'legacy' })
     ],
     declarations: [
         AppComponent,
