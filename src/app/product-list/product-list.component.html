@@ -1,5 +1,32 @@
 <h2>Products</h2>
 
+<hr>
+<div *ngFor="let product of products">
+    <h3>
+        <!-- 透過屬性繫結 [ ] 可以在範本表示式中使用屬性值。 -->
+        <!-- 將滑鼠懸停在產品名稱上，可以檢視所繫結的name屬性值。 -->
+        <a [title]="product.name + ' details'">
+            {{ product.name }}
+        </a>
+    </h3>
+
+    <h5>${{product.price}}</h5>
+
+    <p *ngIf="product.description">
+        Description: {{ product.description }}
+    </p>
+
+    <!-- 將按鈕的 click 事件繫結到 product-list.component.ts 中的 share() 方法。事件繫結要在此事件用一組圓括號 ( ) 括起來，就比如 <button> 元素上的 (click)。 -->
+    <button (click)="share()">
+        Share
+    </button>
+
+    <app-product-alerts [product]="product" (notify)="onNotify()">
+    </app-product-alerts>
+
+    <hr>
+</div>
+
 
 <!--
 Copyright Google LLC. All Rights Reserved.

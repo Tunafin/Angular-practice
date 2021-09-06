@@ -1,4 +1,17 @@
-export const products = [
+// export class Product {
+//     name: string;
+//     price: number;
+//     description: string;
+// }
+
+export interface Product {
+    name: string;
+    price: number;
+    description: string;
+}
+
+
+export const products: Product[] = [
     {
         name: 'Phone XL',
         price: 799,
