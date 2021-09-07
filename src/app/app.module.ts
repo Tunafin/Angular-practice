@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductAlertsComponent } from './product-alerts/product-alerts.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
     imports: [
@@ -14,13 +15,19 @@ import { ProductAlertsComponent } from './product-alerts/product-alerts.componen
         ReactiveFormsModule,
         RouterModule.forRoot([
     { path: '', component: ProductListComponent },
+
+    //在 app.module.ts 中，新增產品詳情的路由，
+    //其 path 為 products/:productId，其 component 為 ProductDetailsComponent。
+    { path: 'products/:productId', component: ProductDetailsComponent },
+
 ], { relativeLinkResolution: 'legacy' })
     ],
     declarations: [
         AppComponent,
         TopBarComponent,
         ProductListComponent,
-        ProductAlertsComponent
+        ProductAlertsComponent,
+        ProductDetailsComponent
     ],
     bootstrap: [AppComponent]
 })
