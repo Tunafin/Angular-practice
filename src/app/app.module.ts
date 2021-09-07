@@ -1,33 +1,46 @@
+import { ShippingComponent } from './shipping/shipping.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductAlertsComponent } from './product-alerts/product-alerts.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
+
+    //宣告要匯入此模組的外部模組
     imports: [
         BrowserModule,
+        HttpClientModule,
         ReactiveFormsModule,
+        FormsModule,
+        CommonModule,
         RouterModule.forRoot([
-    { path: '', component: ProductListComponent },
-
-    //在 app.module.ts 中，新增產品詳情的路由，
-    //其 path 為 products/:productId，其 component 為 ProductDetailsComponent。
-    { path: 'products/:productId', component: ProductDetailsComponent },
-
-], { relativeLinkResolution: 'legacy' })
+            { path: '', redirectTo: 'list', pathMatch: 'full'  },
+            { path: 'list', component: ProductListComponent },
+            { path: 'products/:productId', component: ProductDetailsComponent },
+            { path: 'cart', component: CartComponent },
+            { path: 'shipping', component: ShippingComponent },
+            {path: '**', redirectTo:'list', pathMatch: 'full'}
+        ], { relativeLinkResolution: 'legacy' })
     ],
+
+    //宣告跟View有關的元件
     declarations: [
         AppComponent,
         TopBarComponent,
         ProductListComponent,
         ProductAlertsComponent,
-        ProductDetailsComponent
+        ProductDetailsComponent,
+        CartComponent,
+        ShippingComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,19 @@
+<!-- {{items|json}} -->
+
+<h3>Cart</h3>
+<p>
+    <a routerLink="/shipping">Shipping Prices</a>
+</p>
+<h5>商品總數: {{items.length}}</h5>
+<div class="cart-items-group">
+    <div class="cart-item" *ngFor="let item of items">
+        <div>
+            <b>{{ item.name }}</b>
+        </div>
+        <div>{{ item.price | currency }}</div>
+    </div>
+    <div class="cart-item">
+        <b>QSQADA</b>
+        <div>$123</div>
+    </div>
+</div>

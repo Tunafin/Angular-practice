@@ -1,19 +1,19 @@
 <h2>Products</h2>
 
 <hr>
-<div *ngFor="let product of products">
+<!-- <div *ngFor="let product of products; let i = index"></div> -->
+<div *ngFor="let product of products; index as i" flexlayout>
     <h3>
-        <!-- 透過屬性繫結 [ ] 可以在範本表示式中使用屬性值。 -->
-        <!-- 將滑鼠懸停在產品名稱上，可以檢視所繫結的name屬性值。 -->
-        <a [title]="product.name + ' details'"
-           [routerLink]="['/products',product.id]">
+        <!-- 透過屬性繫結 [ ] 可以在範本表示式中使用屬性值。將滑鼠懸停在產品名稱上，可以檢視所繫結的name屬性值。 -->
+        <!-- <a [title]="product.name + ' details'" [routerLink]="['/products',product.id]"></a> -->
+        <a [title]="product.name + ' details'" (click)="navigate(product)">
             {{ product.name }}
         </a>
     </h3>
 
     <h5>${{product.price}}</h5>
 
-    <p *ngIf="product.description">
+    <p *ngIf="product.description;">
         Description: {{ product.description }}
     </p>
 
@@ -22,6 +22,7 @@
         Share
     </button>
 
+    <!-- <app-product-alerts [(testValue)]="inputValue" [product]="product" (notify)="onNotify()"> -->
     <app-product-alerts [product]="product" (notify)="onNotify()">
     </app-product-alerts>
 
