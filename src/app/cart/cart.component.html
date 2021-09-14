@@ -1,19 +1,49 @@
-<!-- {{items|json}} -->
+<h1>Cart</h1>
+<div class="cart-container">
+    <p><a routerLink="/shipping">Shipping Prices</a></p>
 
-<h3>Cart</h3>
-<p>
-    <a routerLink="/shipping">Shipping Prices</a>
-</p>
-<h5>商品總數: {{items.length}}</h5>
-<div class="cart-items-group">
-    <div class="cart-item" *ngFor="let item of items">
-        <div>
-            <b>{{ item.name }}</b>
+    <h4>商品總數: {{items.length}}</h4>
+    <div class="cart-items-group">
+        <div class="cart-item" *ngFor="let item of items">
+            <div>
+                <b>{{ item.name }}</b>
+            </div>
+            <div>{{ item.price | currency }}</div>
         </div>
-        <div>{{ item.price | currency }}</div>
     </div>
-    <div class="cart-item">
-        <b>QSQADA</b>
-        <div>$123</div>
+    <hr><br>
+
+    <div [(formGroup)]="checkoutForm">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="name">NAME</label>
+                </div>
+                <div class="form-col">
+                    <input type="text" id="name" formControlName="name" [class]="{ inputError: checkoutForm.get('name').invalid && checkoutForm.get('name').touched }">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-row">
+                <div class="form-col">
+                    <label for="name">ADDRESS</label>
+                </div>
+                <div class="form-col">
+                    <input type="text" id="name" formControlName="name" [class]="{ inputError: checkoutForm.get('address').invalid && checkoutForm.get('name').touched }">
+                </div>
+            </div>
+        </div>
+
+        <button class="button" (click)="onSubmit()" [disabled]="!checkoutForm.valid">Purchase</button>
     </div>
+
+    <!--
+        <hr>
+        <p>表單物件(json)</p>
+        <pre>{{checkoutForm.value | json}}</pre>
+        <hr>
+    -->
+
 </div>

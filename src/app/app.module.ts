@@ -23,12 +23,12 @@ import { CartComponent } from './cart/cart.component';
         FormsModule,
         CommonModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'list', pathMatch: 'full'  },
+            { path: '', redirectTo: 'list', pathMatch: 'full' },
             { path: 'list', component: ProductListComponent },
             { path: 'products/:productId', component: ProductDetailsComponent },
             { path: 'cart', component: CartComponent },
             { path: 'shipping', component: ShippingComponent },
-            {path: '**', redirectTo:'list', pathMatch: 'full'}
+            { path: '**', redirectTo: 'list', pathMatch: 'full' }  //萬用路由
         ], { relativeLinkResolution: 'legacy' })
     ],
 
