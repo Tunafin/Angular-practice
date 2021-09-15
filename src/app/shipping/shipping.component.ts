@@ -9,10 +9,9 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./shipping.component.css']
 })
 export class ShippingComponent implements OnInit {
+    shippingCosts = this.cartService.getShippingPrices();
 
     constructor(private cartService: CartService) { }
-
-    shippingCosts = this.cartService.getShippingPrices();
 
     ngOnInit(): void {
     }

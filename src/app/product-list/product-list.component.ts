@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Product, products } from '../products';
+import { ProductsService } from './../products.service';
+
 
 @Component({
     selector: 'app-product-list',
@@ -9,12 +11,14 @@ import { Product, products } from '../products';
     styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-    products = products;
+    products: Product[];
+    testVar: any;
 
-    inputValue = 'test';
-
-    constructor(private router: Router) {
-
+    constructor(
+        private router: Router,
+        private productsServer: ProductsService,
+    ) {
+        this.products = this.productsServer.getProducts();
     }
 
     share() {
