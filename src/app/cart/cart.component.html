@@ -20,7 +20,17 @@
                     <label for="name">NAME</label>
                 </div>
                 <div class="form-col">
-                    <input type="text" id="name" formControlName="name" [class]="{ inputError: checkoutForm.get('name').invalid && checkoutForm.get('name').touched }">
+                    <input type="text" id="name" formControlName="name"
+                        [class]="{ inputError: checkoutForm.get('name').invalid && checkoutForm.get('name').touched }">
+                    <span *ngIf="name.errors?.required && name.touched" class="error-hint">
+                        Required
+                    </span>
+                    <span *ngIf="name.errors?.maxlength && !this.spaceValidator(name)" class="error-hint">
+                        The length of name can't be over than 5 characters
+                    </span>
+                    <span *ngIf="this.spaceValidator(name)" class="error-hint">
+                        <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
+                    </span>
                 </div>
             </div>
         </div>
@@ -28,22 +38,90 @@
         <div class="form-group">
             <div class="form-row">
                 <div class="form-col">
-                    <label for="name">ADDRESS</label>
+                    <label for="address">ADDRESS</label>
                 </div>
                 <div class="form-col">
-                    <input type="text" id="name" formControlName="name" [class]="{ inputError: checkoutForm.get('address').invalid && checkoutForm.get('name').touched }">
+                    <input type="text" id="address" formControlName="address"
+                        [class]="{ inputError: checkoutForm.get('address').invalid && checkoutForm.get('address').touched }">
+                    <span *ngIf="address.errors?.required && address.touched" class="error-hint">
+                        Required
+                    </span>
+                    <span *ngIf="address.errors?.maxlength && !this.spaceValidator(address)" class="error-hint">
+                        The length of address can't be over than 50 characters
+                    </span>
+                    <span *ngIf="this.spaceValidator(address)" class="error-hint">
+                        <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
+                    </span>
                 </div>
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="form-col">
+                <label>Contact</label>
+            </div>
+            <div formArrayName="contacts" *ngFor="let contact of contacts.controls; let i=index">
+                <div [formGroup]="contact">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <select formControlName="type">
+                                <option value="手機"> 手機 </option>
+                                <option value="市話"> 市話 </option>
+                            </select>
+                        </div>
+
+                        <div class="form-col" style="width: 200px;">
+                            <!-- <input type="text" id="number" formControlName="number"> -->
+                            <input type="text" formControlName="number"
+                                [class]="{ inputError: contact.get('number').invalid && contact.get('number').touched }">
+                            <span *ngIf="contact.get('number').errors?.required && contact.get('number').touched"
+                                class="error-hint">
+                                Required
+                            </span>
+                            <span
+                                *ngIf="contact.get('number').errors?.pattern && !this.spaceValidator(contact.get('number'))"
+                                class="error-hint">
+                                The length of phone be 4~10 numbers
+                            </span>
+                            <span *ngIf="this.spaceValidator(contact.get('number'))" class="error-hint">
+                                <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
+                            </span>
+                        </div>
+                        <div *ngIf="i>0" class="form-col">
+                            <button (click)="removeContact(i)" class="btn-del">delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" (click)="addContact()">Add Number</button>
+
+        </div>
         <button class="button" (click)="onSubmit()" [disabled]="!checkoutForm.valid">Purchase</button>
     </div>
 
-    <!--
-        <hr>
-        <p>表單物件(json)</p>
-        <pre>{{checkoutForm.value | json}}</pre>
-        <hr>
-    -->
+    <p>表單物件(json)</p>
+    <pre>{{checkoutForm.value | json}}</pre>
+    <hr>
 
+    <p>欄位值測試</p>
+    <ul>
+        <li>Name: {{checkoutForm.controls.name.value}}
+        <li>Address: {{checkoutForm.controls.address.value|json}}
+        <li>Contact[0]: {{checkoutForm.controls.contacts.value[0]|json}}
+    </ul>
+    <hr>
+
+    <p>驗證測試</p>
+    <ul>
+        <li>checkoutform.valid: {{checkoutForm.valid}}</li>
+        <li>name.valid: {{name.valid}}</li>
+        <li>address.valid: {{address.valid}}</li>
+        <li>contacts.valid: {{contacts.valid}}</li>
+
+        <hr>
+        <li>address.touched: {{checkoutForm.controls.address.touched}}</li>
+        <li>address.dirty: {{checkoutForm.controls.address.dirty}}</li>
+    </ul>
 </div>
+
+<ng-template #spaceCharMessage>禁止全部空白</ng-template>

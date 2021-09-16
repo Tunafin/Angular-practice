@@ -1,1 +1,72 @@
+.cart-container {
+    width: 95vw;
+}
 
+button {
+    margin: 4px;
+}
+
+.error-hint {
+    margin-left: 0.25em;
+    color: red;
+}
+
+.inputError {
+    border: red 1px solid;
+}
+
+.form-group {
+    background-color: darkseagreen;
+    margin: 4px;
+    padding: 4px;
+}
+
+.form-group input[type='text'] {
+    width: 200px;
+}
+
+.bg-gray {
+    background-color: gray;
+}
+
+.form-row {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 8px auto 12px;
+}
+
+.form-col {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: start; */
+    align-self: start;
+    margin: 4px;
+    height: 100%;
+    min-width: 100px;
+    overflow: visible
+}
+
+input {
+    margin: 0;
+}
+
+label {
+    font-size: 18px;
+    padding-top: 8px;
+    margin: 0;
+}
+
+select {
+    height: 34px;
+    font-size: 15px;
+}
+
+.btn-del {
+    display: block;
+    background-color: gray;
+    margin-top: 7px;
+    padding: 2px;
+    width: 50px;
+}

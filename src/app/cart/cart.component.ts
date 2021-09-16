@@ -23,35 +23,30 @@ export class CartComponent implements OnInit {
         this.items = this.cartService.getItems();
 
         // 練習用
-        // this.checkoutForm = new FormGroup({
-        //     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
-        //     address: new FormGroup({
-        //         country: new FormControl({ value: 'Taiwan', disabled: true }),
-        //         //country: new FormControl('Taiwan', [Validators.required]),
-        //         city: new FormControl('', [Validators.required]),
-        //         street: new FormControl('', [Validators.required])
-        //     }),
-        //     numbers: new FormArray([])
-        // });
-        // this.AddNumber();
+        this.checkoutForm = new FormGroup({
+            name: new FormControl('', [Validators.required, Validators.maxLength(5), this.spaceValidator]),
+            address: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+            contacts: new FormArray([])
+        });
+        this.addContact();
 
         // 官方文件範例 使用FormBuilder
-        this.checkoutForm = this.formBuilder.group(
-            {
-                name: '',
-                address: ''
-            }
-        );
+        // this.checkoutForm = this.formBuilder.group(
+        //     {
+        //         name: '',
+        //         address: ''
+        //     }
+        // );
     }
 
     ngOnInit(): void {
     }
 
-    //get name() { return this.checkoutForm.get('name') }
-    //get address() { return this.checkoutForm.get('address') }
-    // get numbers() {
-    //     return this.checkoutForm.get('numbers') as FormArray;
-    // }
+    get name() { return this.checkoutForm.get('name') }
+    get address() { return this.checkoutForm.get('address') }
+    get contacts() {
+        return this.checkoutForm.get('contacts') as FormArray;
+    }
 
     //官方文件範例寫的自訂驗證器
     // forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
@@ -62,18 +57,24 @@ export class CartComponent implements OnInit {
     // }
 
     //自訂驗證器另一種寫法
-    // testValidator(control: AbstractControl): ValidationErrors | null {
-    //     const forbidden = /bob/i.test(control.value);
-    //     return forbidden ? { forbiddenName: { value: control.value } } : null;
-    // }
+    spaceValidator(control: AbstractControl): ValidationErrors | null {
+        const forbidden = /^\s+$/.test(control.value);
+        return forbidden ? { forbiddenName: { value: control.value } } : null;
+    }
 
-    // AddNumber() {
-    //     this.numbers.push(new FormControl('', [Validators.required, Validators.pattern('[0-9]{6,10}')]));
-    // }
+    addContact() {
+        this.contacts.push(
+            new FormGroup({
+                type: new FormControl('手機', [Validators.required]),
+                number: new FormControl('', [Validators.required, Validators.pattern('[0-9]{4,10}')])
+            })
 
-    // RemoveNumber(idx: number) {
-    //     this.numbers.removeAt(idx);
-    // }
+        );
+    }
+
+    removeContact(idx: number) {
+        this.contacts.removeAt(idx);
+    }
 
     onSubmit() {
         console.log("'Purchase' is clicked. The infornation of user is below:");
