@@ -1,3 +1,4 @@
 button {
     background-color: goldenrod;
+    white-space: nowrap;
 }

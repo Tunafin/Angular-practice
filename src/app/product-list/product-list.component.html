@@ -1,34 +1,41 @@
 <h2>Products</h2>
-<hr>
 
-<!-- <div *ngFor="let product of products; let i = index"></div> -->
-<div *ngFor="let product of products; index as i" flexlayout>
-    <h3>
-        <!-- 透過屬性繫結 [ ] 可以在範本表示式中使用屬性值。將滑鼠懸停在產品名稱上，可以檢視所繫結的name屬性值。 -->
-        <!-- <a [title]="product.name + ' details'" [routerLink]="['/products',product.id]"></a> -->
-        <a [title]="product.name + ' details'" (click)="navigate(product)">
-            {{ product.name }}
-        </a>
-    </h3>
+<div class="container">
+    <!-- <div *ngFor="let product of products; let i = index"></div> -->
+    <div *ngFor="let product of products; index as i" flexlayout class="card">
+        <div class="card-up">
+            <h3>
+                <!-- 透過屬性繫結 [ ] 可以在範本表示式中使用屬性值。將滑鼠懸停在產品名稱上，可以檢視所繫結的name屬性值。 -->
+                <!-- <a [title]="product.name + ' details'" [routerLink]="['/products',product.id]"></a> -->
+                <a [title]="product.name + ' details'" (click)="navigate(product)">
+                    {{ product.name }}
+                </a>
+            </h3>
 
-    <h5>${{product.price}}</h5>
+            <h5>${{product.price}}</h5>
 
-    <p *ngIf="product.description;">
-        Description: {{ product.description }}
-    </p>
+            <p *ngIf="product.description;">
+                Description: {{ product.description }}
+            </p>
+        </div>
 
-    <!-- 將按鈕的 click 事件繫結到 product-list.component.ts 中的 share() 方法。事件繫結要在此事件用一組圓括號 ( ) 括起來，就比如 <button> 元素上的 (click)。 -->
-    <button (click)="share()">
-        Share
-    </button>
+        <div class="card-bottom">
+            <!-- 將按鈕的 click 事件繫結到 product-list.component.ts 中的 share() 方法。事件繫結要在此事件用一組圓括號 ( ) 括起來，就比如 <button> 元素上的 (click)。 -->
+            <div>
+                <button (click)="share()">
+                    Share
+                </button>
+            </div>
+            <!-- <app-product-alerts [(testValue)]="inputValue" [product]="product" (notify)="onNotify()"> -->
+            <app-product-alerts [product]="product" (notify)="onNotify()">
+            </app-product-alerts>
+        </div>
+    </div>
 
-    <!-- <app-product-alerts [(testValue)]="inputValue" [product]="product" (notify)="onNotify()"> -->
-    <app-product-alerts [product]="product" (notify)="onNotify()">
-    </app-product-alerts>
+    <!-- container最後佔位用，使最後一行的card能靠左對齊 -->
+    <div *ngFor="let count of [].constructor(6)" class="card empty"></div>
 
-    <hr>
 </div>
-
 
 <!--
 Copyright Google LLC. All Rights Reserved.
