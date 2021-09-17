@@ -1,0 +1,39 @@
+<h1>Orders</h1>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>送出時間</th>
+                <th>訂購人</th>
+                <th>聯絡資訊</th>
+                <th>地址</th>
+                <th>物品清單</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td class="time">
+                    {{order.time | date:'yyyy-MM-dd hh:mm:ss'}}
+                </td>
+                <td>
+                    {{order.name}}
+                </td>
+                <td>
+                    <li *ngFor="let contact of order.contacts">
+                        ({{contact.type}}){{contact.number}}
+                    </li>
+                </td>
+                <td>
+                    {{order.address}}
+                </td>
+                <td>
+                    <li *ngFor="let item of order.items">
+                        <span>{{item.name}} </span>
+                        <span>(${{item.price}})</span>
+                    </li>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

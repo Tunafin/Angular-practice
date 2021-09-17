@@ -1,8 +1,14 @@
-<a [routerLink]="['/']">
-    <h1>My Store</h1>
-</a>
+<div>
+    <a [routerLink]="['/']">
+        <h1>My Store</h1>
+    </a>
+</div>
+<div style="display: flex; flex-wrap: nowrap">
+    <a routerLink="/order-list" class="button fancy-button"><i class="material-icons">shopping_cart</i>Order</a>
+    <a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i>Checkout</a>
+</div>
 
-<a routerLink="/cart" class="button fancy-button"><i class="material-icons">shopping_cart</i>Checkout</a>
+
 
 <!--
 Copyright Google LLC. All Rights Reserved.

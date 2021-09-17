@@ -1,5 +1,5 @@
 <h1>Cart</h1>
-<div class="cart-container">
+<div *ngIf="items.length !== 0; else cartIsEmpty" class="cart-container">
     <p><a routerLink="/shipping">Shipping Prices</a></p>
 
     <h4>商品總數: {{items.length}}</h4>
@@ -94,34 +94,40 @@
                 </div>
             </div>
             <button type="button" (click)="addContact()">Add Number</button>
-
         </div>
-        <button class="button" (click)="onSubmit()" [disabled]="!checkoutForm.valid">Purchase</button>
+        <hr>
+        <div style="margin: 16px 8px;">
+            <button class="button" (click)="addToOrders()" [disabled]="!checkoutForm.valid">Purchase</button>
+        </div>
     </div>
 
-    <p>表單物件(json)</p>
-    <pre>{{checkoutForm.value | json}}</pre>
-    <hr>
-
-    <p>欄位值測試</p>
-    <ul>
-        <li>Name: {{checkoutForm.controls.name.value}}
-        <li>Address: {{checkoutForm.controls.address.value|json}}
-        <li>Contact[0]: {{checkoutForm.controls.contacts.value[0]|json}}
-    </ul>
-    <hr>
-
-    <p>驗證測試</p>
-    <ul>
-        <li>checkoutform.valid: {{checkoutForm.valid}}</li>
-        <li>name.valid: {{name.valid}}</li>
-        <li>address.valid: {{address.valid}}</li>
-        <li>contacts.valid: {{contacts.valid}}</li>
-
+    <!--
+        <p>表單物件(json)</p>
+        <pre>{{checkoutForm.value | json}}</pre>
         <hr>
-        <li>address.touched: {{checkoutForm.controls.address.touched}}</li>
-        <li>address.dirty: {{checkoutForm.controls.address.dirty}}</li>
-    </ul>
+
+        <p>欄位值測試</p>
+        <ul>
+            <li>Name: {{checkoutForm.controls.name.value}}
+            <li>Address: {{checkoutForm.controls.address.value|json}}
+            <li>Contact[0]: {{checkoutForm.controls.contacts.value[0]|json}}
+        </ul>
+        <hr>
+
+        <p>驗證測試</p>
+        <ul>
+            <li>checkoutform.valid: {{checkoutForm.valid}}</li>
+            <li>name.valid: {{name.valid}}</li>
+            <li>address.valid: {{address.valid}}</li>
+            <li>contacts.valid: {{contacts.valid}}</li>
+            <hr>
+            <li>address.touched: {{checkoutForm.controls.address.touched}}</li>
+            <li>address.dirty: {{checkoutForm.controls.address.dirty}}</li>
+        </ul>
+    -->
 </div>
+
+
+<ng-template #cartIsEmpty>The Cart is Empty!</ng-template>
 
 <ng-template #spaceCharMessage>禁止全部空白</ng-template>

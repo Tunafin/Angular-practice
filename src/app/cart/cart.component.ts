@@ -1,8 +1,11 @@
+import { Order } from './../orders';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Product } from '../products';
 import { CartService } from '../cart.service';
+import { OrdersService } from '../orders.service';
 
 @Component({
     selector: 'app-cart',
@@ -18,7 +21,9 @@ export class CartComponent implements OnInit {
 
     constructor(
         private cartService: CartService,
+        private ordersService: OrdersService,
         private formBuilder: FormBuilder,
+        private router: Router
     ) {
         this.items = this.cartService.getItems();
 
@@ -66,7 +71,7 @@ export class CartComponent implements OnInit {
         this.contacts.push(
             new FormGroup({
                 type: new FormControl('手機', [Validators.required]),
-                number: new FormControl('', [Validators.required, Validators.pattern('[0-9]{4,10}')])
+                number: new FormControl('', [Validators.required, Validators.pattern('[\-0-9]{4,10}')])
             })
 
         );
@@ -87,6 +92,23 @@ export class CartComponent implements OnInit {
         this.items = this.cartService.clearCart();
         this.checkoutForm.reset();
         window.alert("Cart has been cleared and reset.");
+    }
+
+    addToOrders() {
+        const timeNow = new Date();
+        let orderSample: Order = {
+            id: null,
+            name: this.checkoutForm.get('name').value,
+            address: this.checkoutForm.get('address').value,
+            contacts: this.checkoutForm.get('contacts').value,
+            time: new Date(),
+            items: this.items
+        };
+        this.ordersService.addToOrders(orderSample);
+        this.items = this.cartService.clearCart();
+        this.checkoutForm.reset();
+        window.alert("Cart has been cleared and reset.");
+        this.router.navigateByUrl("/order-list");
     }
 
     // updateSample() {
