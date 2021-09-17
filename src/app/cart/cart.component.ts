@@ -1,11 +1,11 @@
-import { Order } from './../orders';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Product } from '../products';
 import { CartService } from '../cart.service';
 import { OrdersService } from '../orders.service';
+import { Order } from './../orders';
 
 @Component({
     selector: 'app-cart',
@@ -13,26 +13,33 @@ import { OrdersService } from '../orders.service';
     styleUrls: ['./cart.component.css']
 
 })
-
 export class CartComponent implements OnInit {
-
     items: Product[]
     checkoutForm: FormGroup
+    name: FormControl
+    address: FormControl
+    contacts: FormArray
+    //範例寫法，但頻繁call function易造成效率問題
+    // get name() { return this.checkoutForm?.get('name') }
+    // get address() { return this.checkoutForm?.get('address') }
+    // get contacts() {
+    //     return this.checkoutForm.get('contacts') as FormArray;
+    // }
 
     constructor(
         private cartService: CartService,
         private ordersService: OrdersService,
-        private formBuilder: FormBuilder,
         private router: Router
     ) {
         this.items = this.cartService.getItems();
-
-        // 練習用
         this.checkoutForm = new FormGroup({
-            name: new FormControl('', [Validators.required, Validators.maxLength(5), this.spaceValidator]),
-            address: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+            name: new FormControl('', [Validators.required, this.spaceValidator, Validators.maxLength(5)]),
+            address: new FormControl('', [Validators.required, this.spaceValidator, Validators.maxLength(50)]),
             contacts: new FormArray([])
         });
+        this.name = this.checkoutForm?.get('name') as FormControl;
+        this.address = this.checkoutForm?.get('address') as FormControl;
+        this.contacts = this.checkoutForm?.get('contacts') as FormArray;
         this.addContact();
 
         // 官方文件範例 使用FormBuilder
@@ -47,13 +54,7 @@ export class CartComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    get name() { return this.checkoutForm.get('name') }
-    get address() { return this.checkoutForm.get('address') }
-    get contacts() {
-        return this.checkoutForm.get('contacts') as FormArray;
-    }
-
-    //官方文件範例寫的自訂驗證器
+    // 官方文件範例的自訂驗證器，使用ValidatorFn
     // forbiddenNameValidator(nameRe: RegExp): ValidatorFn {
     //     return (control: AbstractControl): ValidationErrors | null => {
     //         const forbidden = nameRe.test(control.value);
@@ -61,20 +62,45 @@ export class CartComponent implements OnInit {
     //     };
     // }
 
-    //自訂驗證器另一種寫法
+    //自訂驗證器，ValidationErrors
     spaceValidator(control: AbstractControl): ValidationErrors | null {
-        const forbidden = /^\s+$/.test(control.value);
-        return forbidden ? { forbiddenName: { value: control.value } } : null;
+        const spaceError = /^\s+$/.test(control.value);
+        return spaceError ? { isAllSpace: true } : null;
     }
 
     addContact() {
         this.contacts.push(
             new FormGroup({
                 type: new FormControl('手機', [Validators.required]),
-                number: new FormControl('', [Validators.required, Validators.pattern('[\-0-9]{4,10}')])
+                number: new FormControl('', [Validators.required, this.spaceValidator, Validators.pattern('[0-9]{1,10}')])
             })
 
         );
+    }
+
+    //若欄位驗證錯誤，回傳錯誤訊息
+    getErrorMsg(control: AbstractControl) {
+        const errors = control.errors;
+        if (errors == null) {
+            return null;
+        };
+        const errorKeys = Object.keys(errors);
+        const firstErrorKey = errorKeys[0];
+        //const value = errors['firstErrorKey'];
+        switch (firstErrorKey) {
+            case 'required':
+                return '必填';
+            case 'isAllSpace':
+                return '不能全部空白';
+            case 'maxlength':
+                return `最大長度為${errors[firstErrorKey]['requiredLength']}`;
+            case 'minlength':
+                return `最小長度為${errors[firstErrorKey]['requiredLength']}`;
+            case 'pattern':
+                return '格式不符';
+            default:
+                return '---';
+        }
     }
 
     removeContact(idx: number) {
@@ -84,14 +110,13 @@ export class CartComponent implements OnInit {
     onSubmit() {
         console.log("'Purchase' is clicked. The infornation of user is below:");
         console.log(this.checkoutForm.value);
-
         // if (this.checkoutForm.valid == true)
         //     console.log("Valid Pass!");
         // else
         //     console.log("Valid Fail!");
         this.items = this.cartService.clearCart();
         this.checkoutForm.reset();
-        window.alert("Cart has been cleared and reset.");
+        window.alert("Order saved. The cart has been cleared and reset.");
     }
 
     addToOrders() {
@@ -128,7 +153,7 @@ export class CartComponent implements OnInit {
     //     // (this.checkoutForm.controls.address as FormGroup).controls.city.setValue('Taipei');
     //     // (this.checkoutForm.controls.numbers as FormArray).controls[0].setValue('0911122233');
 
-    //     //使用patchValue()
+    //     //使用patchValue()，較不嚴謹
     //     // this.checkoutForm.patchValue({
     //     //     address: {
     //     //         country: 'Taiwan',

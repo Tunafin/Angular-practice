@@ -21,15 +21,9 @@
                 </div>
                 <div class="form-col">
                     <input type="text" id="name" formControlName="name"
-                        [class]="{ inputError: checkoutForm.get('name').invalid && checkoutForm.get('name').touched }">
-                    <span *ngIf="name.errors?.required && name.touched" class="error-hint">
-                        Required
-                    </span>
-                    <span *ngIf="name.errors?.maxlength && !this.spaceValidator(name)" class="error-hint">
-                        The length of name can't be over than 5 characters
-                    </span>
-                    <span *ngIf="this.spaceValidator(name)" class="error-hint">
-                        <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
+                        [class]="{ inputError: name.invalid && name.touched }">
+                    <span *ngIf="name.touched" class="error-hint">
+                        {{getErrorMsg(name)}}
                     </span>
                 </div>
             </div>
@@ -42,15 +36,9 @@
                 </div>
                 <div class="form-col">
                     <input type="text" id="address" formControlName="address"
-                        [class]="{ inputError: checkoutForm.get('address').invalid && checkoutForm.get('address').touched }">
-                    <span *ngIf="address.errors?.required && address.touched" class="error-hint">
-                        Required
-                    </span>
-                    <span *ngIf="address.errors?.maxlength && !this.spaceValidator(address)" class="error-hint">
-                        The length of address can't be over than 50 characters
-                    </span>
-                    <span *ngIf="this.spaceValidator(address)" class="error-hint">
-                        <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
+                        [class]="{ inputError: address.invalid && address.touched }">
+                    <span *ngIf="address.touched" class="error-hint">
+                        {{getErrorMsg(address)}}
                     </span>
                 </div>
             </div>
@@ -60,7 +48,7 @@
             <div class="form-col">
                 <label>Contact</label>
             </div>
-            <div formArrayName="contacts" *ngFor="let contact of contacts.controls; let i=index">
+            <div formArrayName="contacts" *ngFor="let contact of contacts.controls; let i=index;let count=count">
                 <div [formGroup]="contact">
                     <div class="form-row">
                         <div class="form-col">
@@ -74,20 +62,27 @@
                             <!-- <input type="text" id="number" formControlName="number"> -->
                             <input type="text" formControlName="number"
                                 [class]="{ inputError: contact.get('number').invalid && contact.get('number').touched }">
-                            <span *ngIf="contact.get('number').errors?.required && contact.get('number').touched"
-                                class="error-hint">
-                                Required
+                            <span *ngIf="contact.get('number').touched" class="error-hint">
+                                {{getErrorMsg(contact.get('number'))}}
                             </span>
-                            <span
-                                *ngIf="contact.get('number').errors?.pattern && !this.spaceValidator(contact.get('number'))"
-                                class="error-hint">
-                                The length of phone be 4~10 numbers
-                            </span>
-                            <span *ngIf="this.spaceValidator(contact.get('number'))" class="error-hint">
-                                <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
-                            </span>
+                            <!-- 範例寫法 -->
+                            <!--
+                                <span *ngIf="contact.get('number').errors?.required && contact.get('number').touched"
+                                    class="error-hint">
+                                    Required
+                                </span>
+                                {{contact.get('number')?.errors |json}}
+                                <span
+                                    *ngIf="contact.get('number').errors?.pattern && !spaceValidator(contact.get('number'))"
+                                    class="error-hint">
+                                    The length of phone be 4~10 numbers
+                                </span>
+                                <span *ngIf="spaceValidator(contact.get('number'))" class="error-hint">
+                                    <ng-template *ngTemplateOutlet="spaceCharMessage"> </ng-template>
+                                </span>
+                             -->
                         </div>
-                        <div *ngIf="i>0" class="form-col">
+                        <div *ngIf="count>1" class="form-col">
                             <button (click)="removeContact(i)" class="btn-del">delete</button>
                         </div>
                     </div>
