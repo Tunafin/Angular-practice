@@ -32,10 +32,11 @@ export class ProductsService {
 
         while (count > 0 && year >= firstYear) {
             while (season >= 0 && count > 0) {
+                const rng = Math.floor(Math.random() * 21) * 10 + 600;
                 let quarterlySample = {
                     id: year * 100 + season * 3 + 1,
                     name: `Quarterly ${year} ${seasonsName[season]}`,
-                    price: Math.floor(Math.random() * 21) * 10 + 600,
+                    price: rng,
                     description: `This is the quarterly for ${year} ${seasonsName[season]}.`
                 }
                 items.push(quarterlySample);

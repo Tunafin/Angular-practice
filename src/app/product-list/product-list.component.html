@@ -1,14 +1,25 @@
-<h2>Products</h2>
-
-<div class="container">
+<div style="margin: 10px;">
+    <h2>Products</h2>
+    <div class="form-group">
+        <div class="form-row">
+            <div class="form-col">
+                <label for="filterInput">Keyword Filter</label>
+            </div>
+            <div class="form-col">
+                <input id="filterInput" type="text" #filterInput (input)="tofilter(filterInput.value)">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box-container">
     <!-- <div *ngFor="let product of products; let i = index"></div> -->
-    <app-card *ngFor="let product of products;" [product]="product" [isShowShareBtn]=true class="box">
+    <app-card *ngFor="let product of productsFromFilter;" [product]="product" [isShowShareBtn]=true class="box">
     </app-card>
 
     <!-- container最後佔位用，使最後一行的card能靠左對齊 -->
     <div *ngFor="let count of [].constructor(6)" class="box empty"></div>
-
 </div>
+
 
 <!--
 Copyright Google LLC. All Rights Reserved.
