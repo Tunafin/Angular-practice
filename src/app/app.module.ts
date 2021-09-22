@@ -13,6 +13,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ShippingComponent } from './shipping/shipping.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderListComponent } from './order-list/order-list.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
 
@@ -43,7 +44,8 @@ import { OrderListComponent } from './order-list/order-list.component';
         ProductDetailsComponent,
         CartComponent,
         ShippingComponent,
-        OrderListComponent
+        OrderListComponent,
+        CardComponent
     ],
     bootstrap: [AppComponent]
 })

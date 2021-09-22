@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Product } from '../products';
 import { ProductsService } from './../products.service';
-
 
 @Component({
     selector: 'app-product-list',
@@ -15,29 +13,9 @@ export class ProductListComponent {
     testVar: any;
 
     constructor(
-        private router: Router,
         private productsServer: ProductsService,
     ) {
         this.products = this.productsServer.getProducts();
-    }
-
-    share() {
-        window.alert('The product has been shared!');
-    }
-
-    onNotify() {
-        window.alert('You will be notified when the product goes on sale.');
-    }
-
-    /*
-    test(res: any) {
-        console.log(res)
-    }
-    */
-
-    navigate(product: Product) {
-        this.router.navigate(['/products', product.id])
-        // this.router.navigate([`/products/${product.id}`])
     }
 }
 

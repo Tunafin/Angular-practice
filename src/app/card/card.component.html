@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-top">
+        <h3>
+            <a [title]="product.name + ' details'" (click)="navigate(product)">
+                {{ product.name }}
+            </a>
+        </h3>
+        <h5>${{product.price}}</h5>
+        <p *ngIf="product.description;">
+            Description: {{ product.description }}
+        </p>
+    </div>
+
+    <div class="card-bottom">
+        <ng-container *ngIf="isShowShareBtn">
+            <div>
+                <button (click)="share()">
+                    Share
+                </button>
+            </div>
+            <!-- <app-product-alerts [(testValue)]="inputValue" [product]="product" (notify)="onNotify()"> -->
+            <app-product-alerts [product]="product" (notify)="onNotify()">
+            </app-product-alerts>
+        </ng-container>
+        <ng-container *ngIf="isShowBuyBtn">
+            <button (click)="addToCart(product)">Buy</button>
+        </ng-container>
+    </div>
+</div>
