@@ -1,23 +1,24 @@
 <div style="margin: 10px;">
     <h2>Products</h2>
     <div class="form-group">
-        <div class="form-row">
-            <div class="form-col">
+        <div fxLayout="row warp" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+            <div fxLayout="column" fxLayoutAlign="center">
                 <label for="filterInput">Keyword Filter</label>
             </div>
-            <div class="form-col">
+            <div fxLayout="column" fxLayoutAlign="center">
                 <input id="filterInput" type="text" #filterInput (input)="tofilter(filterInput.value)">
             </div>
         </div>
     </div>
 </div>
-<div class="box-container">
-    <!-- <div *ngFor="let product of products; let i = index"></div> -->
-    <app-card *ngFor="let product of productsFromFilter;" [product]="product" [isShowShareBtn]=true class="box">
-    </app-card>
 
-    <!-- container最後佔位用，使最後一行的card能靠左對齊 -->
-    <div *ngFor="let count of [].constructor(6)" class="box empty"></div>
+<!-- 使用Angular Flex-Layout -->
+<div fxLayout="row warp" fxLayoutAlign="start stretch">
+    <!-- <div *ngFor="let product of products; let i = index"></div> -->
+    <app-card *ngFor="let product of productsFromFilter;" [product]="product" [isShowShareBtn]=true fxFlex="400px"
+        fxFlex.xs="95%" style="margin: 10px;">
+        <!-- style="width: 400px; flex-grow: 0.6;" -->
+    </app-card>
 </div>
 
 

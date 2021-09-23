@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" fxLayout="column">
     <div class="card-top">
         <div>
             <h3 style="display: inline-block;">
@@ -9,13 +9,13 @@
             <span style="font-size: small;"> ({{product.id}})</span>
         </div>
 
-        <h5>${{product.price}}</h5>
+        <b>${{product.price}}</b>
         <p *ngIf="product.description;">
             Description: {{ product.description }}
         </p>
     </div>
 
-    <div class="card-bottom">
+    <div class="card-bottom" fxLayout="row" fxLayoutAlign="end">
         <ng-container *ngIf="isShowShareBtn">
             <div>
                 <button (click)="share()">

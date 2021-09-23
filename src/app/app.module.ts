@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -24,6 +25,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
+        FlexLayoutModule,
         CommonModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'list', pathMatch: 'full' },
