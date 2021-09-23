@@ -14,6 +14,7 @@ import { ShippingComponent } from './shipping/shipping.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { CardComponent } from './card/card.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 
@@ -32,7 +33,8 @@ import { CardComponent } from './card/card.component';
             { path: 'shipping', component: ShippingComponent },
             { path: 'order-list', component: OrderListComponent },
             { path: '**', redirectTo: 'list', pathMatch: 'full' }  //萬用路由
-        ], { relativeLinkResolution: 'legacy' })
+        ], { relativeLinkResolution: 'legacy' }),
+        NoopAnimationsModule
     ],
 
     //宣告跟View有關的元件
