@@ -1,9 +1,11 @@
-.order-info {
-    padding: 5px;
-    margin: 5px;
-    background-color: rgb(240, 240, 240);
-    display: flex;
-    justify-content: space-between;
+table {
+    width: 100%;
+}
+
+table td, table th {
+    padding: 2px 6px 2px 3px;
+    white-space: nowrap;
+    text-align: left;
 }
 
 .container {
@@ -11,7 +13,17 @@
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-    padding: 0;
+    padding: 10px;
+}
+
+/* 下面為原來自己寫的table css */
+
+/* .order-info {
+    padding: 5px;
+    margin: 5px;
+    background-color: rgb(240, 240, 240);
+    display: flex;
+    justify-content: space-between;
 }
 
 table, th, td {
@@ -27,7 +39,7 @@ th, td {
 th, .time, li {
     white-space: nowrap;
     text-align: left;
-}
+} */
 
 li {
     list-style: none;

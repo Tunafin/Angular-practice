@@ -6,7 +6,7 @@
                     {{ product.name }}
                 </a>
             </h3>
-            <span style="font-size: small;"> ({{product.id}})</span>
+            <!-- <span style="font-size: small;"> ({{product.id}})</span> -->
         </div>
 
         <b>${{product.price}}</b>
@@ -18,16 +18,16 @@
     <div class="card-bottom" fxLayout="row" fxLayoutAlign="end">
         <ng-container *ngIf="isShowShareBtn">
             <div>
-                <button (click)="share()">
+                <button mat-raised-button color="accent" (click)="share(product)">
                     Share
                 </button>
             </div>
             <!-- <app-product-alerts [(testValue)]="inputValue" [product]="product" (notify)="onNotify()"> -->
-            <app-product-alerts [product]="product" (notify)="onNotify()">
+            <app-product-alerts [product]="product" (notify)="onNotify(product)">
             </app-product-alerts>
         </ng-container>
         <ng-container *ngIf="isShowBuyBtn">
-            <button (click)="addToCart(product)">Buy</button>
+            <button mat-raised-button color="accent" (click)="addToCart(product)">Buy</button>
         </ng-container>
     </div>
 </div>

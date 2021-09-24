@@ -23,12 +23,12 @@ export class CardComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    share() {
-        window.alert('The product has been shared!');
+    share(item: Product) {
+        window.alert(`The product(${item.name}) has been shared!`);
     }
 
-    onNotify() {
-        window.alert('You will be notified when the product goes on sale.');
+    onNotify(item: Product) {
+        window.alert(`You will be notified when \"${item.name}\" goes on sale!`);
     }
 
     navigate(product: Product) {

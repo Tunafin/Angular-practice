@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { sum } from 'lodash';
+
 import { Product } from '../products';
 import { CartService } from '../cart.service';
 import { OrdersService } from '../orders.service';
@@ -120,14 +122,14 @@ export class CartComponent implements OnInit {
     }
 
     addToOrders() {
-        const timeNow = new Date();
         let orderSample: Order = {
             id: null,
             name: this.checkoutForm.get('name').value,
             address: this.checkoutForm.get('address').value,
             contacts: this.checkoutForm.get('contacts').value,
             time: new Date(),
-            items: this.items
+            items: this.items,
+            total: sum(this.items.map(x => x.price))
         };
         this.ordersService.addToOrders(orderSample);
         this.items = this.cartService.clearCart();

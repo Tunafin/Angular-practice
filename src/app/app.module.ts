@@ -5,6 +5,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+//import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -15,7 +20,7 @@ import { ShippingComponent } from './shipping/shipping.component';
 import { CartComponent } from './cart/cart.component';
 import { OrderListComponent } from './order-list/order-list.component';
 import { CardComponent } from './card/card.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 
@@ -27,6 +32,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
         FormsModule,
         FlexLayoutModule,
         CommonModule,
+        MatButtonModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'list', pathMatch: 'full' },
             { path: 'list', component: ProductListComponent },
@@ -36,7 +45,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
             { path: 'order-list', component: OrderListComponent },
             { path: '**', redirectTo: 'list', pathMatch: 'full' }  //萬用路由
         ], { relativeLinkResolution: 'legacy' }),
-        NoopAnimationsModule
+        BrowserAnimationsModule,
     ],
 
     //宣告跟View有關的元件

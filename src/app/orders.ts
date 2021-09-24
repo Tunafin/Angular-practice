@@ -10,6 +10,7 @@ export interface Order {
     }[]
     time: Date,
     items: Product[],
+    total: number
 }
 
 
